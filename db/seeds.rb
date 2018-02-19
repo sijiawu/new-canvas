@@ -64,6 +64,12 @@ books.each do |book_data|
   b.save
 end
 
+User.delete_all
+User.create username: 'user1', email: 'user1@example.org', password: 'user1pw'
+User.create username: 'user2', email: 'user2@example.org', password: 'user2pw'
+User.create username: 'user3', email: 'user3@example.org', password: 'user3pw'
+
+print "There are now #{User.count} users in the database.\n"
 
 print "There are now #{Book.count} books in the database.\n"
 print "There are now #{Author.count} authors in the database.\n"

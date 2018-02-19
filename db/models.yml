@@ -1,9 +1,10 @@
 Author
   name: text
 
-# User
-#   email: text
-#   password: text
+User
+  username: text
+  email: text
+  password: text
 
 Book
   title: text
