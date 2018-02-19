@@ -1,0 +1,34 @@
+<div class="jumbotron">
+  <h1 class="display-3"><center>Bookshelf</center></h1>
+  <h4 class="lead"><center>Your favorite books all in one place :)</center></h4>
+  <hr class="my-4">
+  <p><center>Bookshelf helps you organize your favorite books and authors, and you can see what other people are reading</center></p>
+  <p class="lead">
+    <center><a class="btn btn-primary btn-lg" href="/books/new" role="button">Add new book</a></center>
+  </p>
+</div> 
+<div class="row">
+
+  <% Book.all.order('created_at desc').each do |book| %>
+
+
+  
+  <div class="col-sm-4 my-4 text-center">
+    <div class="card" style="width: 20rem;">
+
+      <% cover_url = book.cover_url %>
+      <%= link_to image_tag(cover_url, :class => "img-fluid card-img-top center-cropped"), "/books/#{book.id}" %>
+
+      <div class="card-block">
+        <h4 class="card-title"><%= book.title %></h4>
+        <p class="card-text module line-clamp"><%= book.summary %></p>
+        <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
+        <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+
+</div>

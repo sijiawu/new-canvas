@@ -1,0 +1,12 @@
+Author
+  name: text
+
+# User
+#   email: text
+#   password: text
+
+Book
+  title: text
+  summary: text
+  cover_url: text
+  author_id: integer
