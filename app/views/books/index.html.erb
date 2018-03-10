@@ -1,17 +1,20 @@
 <div class="jumbotron">
-  <h1 class="display-3"><center>Bookshelf</center></h1>
-  <h4 class="lead"><center>Your favorite books all in one place :)</center></h4>
+  <h1 class="display-3"><center>Greatreads</center></h1>
+  <h4 class="lead"><center>Your favorite online book club :)</center></h4>
   <hr class="my-4">
-  <p><center>Bookshelf helps you organize your favorite books and authors, and you can see what other people are reading</center></p>
-  <p class="lead">
-    <center><a class="btn btn-primary btn-lg" href="/books/new" role="button">Add new book</a></center>
-  </p>
+  <p><center>Greatreads is an online reader community. Here you can browse your favorite books and make friends who love reading just as much as you do! And no, we are nothing like Goodreads.</center></p>
+  <% if User.find_by(id: cookies[:user_id]) != nil %>
+    <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+      <p class="lead">
+        <center><a class="btn btn-primary btn-lg" href="/books/new" role="button">Add new book</a></center>
+      </p>
+    <% end %>
+  <% end %>
+
 </div> 
 <div class="row">
 
-  <% Book.all.order('created_at desc').each do |book| %>
-
-
+  <% @books.each do |book| %>
   
   <div class="col-sm-4 my-4 text-center">
     <div class="card" style="width: 20rem;">
@@ -22,8 +25,13 @@
       <div class="card-block">
         <h4 class="card-title"><%= book.title %></h4>
         <p class="card-text module line-clamp"><%= book.summary %></p>
-        <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
-        <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+        <% if User.find_by(id: cookies[:user_id]) != nil %>
+          <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+            <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
+            <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+          <% end %>
+        <% end %>
+
 
       </div>
     </div>

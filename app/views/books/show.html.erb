@@ -9,11 +9,10 @@
   </div>
 </div>
 <div class="row">
-
-  <div class="col-sm-6">
+  <div class="col-sm-5">
     <%= image_tag book.cover_url %>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-7">
     <h2>Summary: </h2>
     <p><%= book.summary %></p>
     <hr class="my-4">
@@ -28,7 +27,33 @@
           </div>
         <% end %>
       </div>
-
     <% end %>
+
+    <hr class="my-4">
+
+    <% if book.reviews.present? %>
+      <h2>What people say about this book: </h2>
+      <% book.reviews.each do |review| %>
+        <div class="alert alert-dark">
+          <%= review.creator %> says:  <%= review.content %>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <% if User.find_by(id: cookies[:user_id]) != nil %>
+        <%= form_tag "/reviews/", method: "post" do %>
+          <div class="form-group">
+            <textarea class="form-control" name="content" rows="2">Say something!</textarea>
+          </div>
+          <%= hidden_field_tag :book_id, book.title %>
+          
+          <button class="btn btn-primary">Add Review</button>
+        <% end %>
+    <% else %>
+        <%= link_to "Log in to add a review", "/sessions/new" %>
+    <% end %>
+
   </div>
 </div>
+
+

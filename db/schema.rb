@@ -28,12 +28,21 @@ ActiveRecord::Schema.define(version: 0) do
     t.index ["author_id"], name: "index_books_on_author_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.text "content"
+    t.text "creator"
+    t.integer "book_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["book_id"], name: "index_reviews_on_book_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "username"
     t.text "email"
-    t.text "password"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text "password_digest"
   end
 
 end

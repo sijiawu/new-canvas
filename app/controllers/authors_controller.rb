@@ -18,4 +18,28 @@ class AuthorsController < ApplicationController
     redirect_to "/authors"
   end
 
+  def new
+    if User.find_by(id: cookies[:user_id]) != nil
+      if User.find_by(id: cookies[:user_id]).username == "admin"
+        render 'new'
+      else 
+        redirect_to "/", notice: "You do not have permission to access"
+      end
+    else 
+      redirect_to "/", notice: "You do not have permission to access"  
+    end
+  end
+
+  def edit
+    if User.find_by(id: cookies[:user_id]) != nil
+      if User.find_by(id: cookies[:user_id]).username == "admin"
+        render 'edit'
+      else 
+        redirect_to "/", notice: "You do not have permission to access"
+      end
+    else 
+      redirect_to "/", notice: "You do not have permission to access"  
+    end
+  end
+
 end

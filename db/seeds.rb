@@ -4,6 +4,8 @@
 
 Book.delete_all
 Author.delete_all
+User.delete_all
+Review.delete_all
 
 authors = ["Antoine de Saint-Exupery", "Agatha Christie", "Darren Hardy", "Harper Lee"]
 
@@ -64,12 +66,55 @@ books.each do |book_data|
   b.save
 end
 
+reviews = [
+  {
+    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
+    "creator" => "user1",
+    "book" => "Murder on the Orient Express"
+  },
+  {
+    "content" => "Another great book by Agatha Christie",
+    "creator" => "user1",
+    "book" => "The Murder of Roger Ackroyd"
+  },
+  {
+    "content" => "Wanted to see the movie after reading this book!",
+    "creator" => "user2",
+    "book" => "Murder on the Orient Express"
+  },  
+  {
+    "content" => "The saddest story in human history",
+    "creator" => "user2",
+    "book" => "The Little Prince"
+  },
+  {
+    "content" => "Just beautiful sadness",
+    "creator" => "user3",
+    "book" => "The Little Prince"
+  },
+  {
+    "content" => "SAD, SAD, SAD!",
+    "creator" => "user1",
+    "book" => "The Little Prince"
+  }
+]
+
+reviews.each do |review|
+  c = Review.new
+  c.content = review["content"]
+  c.creator = review["creator"]
+  c.book = Book.find_by(title: review["book"])
+  c.save
+end
+
 User.delete_all
 User.create username: 'user1', email: 'user1@example.org', password: 'user1pw'
 User.create username: 'user2', email: 'user2@example.org', password: 'user2pw'
 User.create username: 'user3', email: 'user3@example.org', password: 'user3pw'
+User.create username: 'admin', email: 'admin@example.org', password: 'admin'
 
 print "There are now #{User.count} users in the database.\n"
-
 print "There are now #{Book.count} books in the database.\n"
 print "There are now #{Author.count} authors in the database.\n"
+print "There are now #{Review.count} reviews in the database.\n"
+

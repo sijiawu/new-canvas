@@ -1,6 +1,9 @@
 class BooksController < ApplicationController
 
   def index
+
+    @books = Book.all.limit(100).order('created_at desc')
+    
   end
 
   def update
@@ -25,5 +28,29 @@ class BooksController < ApplicationController
                 :cover_url => params["cover_url"],
                 :author_id => params["author_id"]
     redirect_to "/"
+  end
+
+  def new
+    if User.find_by(id: cookies[:user_id]) != nil
+      if User.find_by(id: cookies[:user_id]).username == "admin"
+        render 'new'
+      else 
+        redirect_to "/", notice: "You do not have permission to access"
+      end
+    else 
+      redirect_to "/", notice: "You do not have permission to access"  
+    end
+  end
+
+  def edit
+    if User.find_by(id: cookies[:user_id]) != nil
+      if User.find_by(id: cookies[:user_id]).username == "admin"
+        render 'edit'
+      else 
+        redirect_to "/", notice: "You do not have permission to access"
+      end
+    else 
+      redirect_to "/", notice: "You do not have permission to access"  
+    end
   end
 end
