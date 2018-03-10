@@ -4,6 +4,7 @@
 Greatreads is an online book club where people can talk about their favorite books. 
 
 ###Users and Permissions###
+
 The “Users” tab in nav bar will only be displayed if the currently-logged-in user is admin. Other pages will also look different to admin because there are more actions.
 
 Admin can CRUD books, users and authors. Users can only view the books, authors, search or leave reviews.  
