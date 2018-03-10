@@ -33,7 +33,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <% if cookies[:user_id] != nil %>
-            <li class="nav-item">Hi, <%= User.find_by(id: cookies[:user_id]).email %></li>
+            <li class="nav-item"><p class="nav-link" style="color:black">Signed in as <b><%= User.find_by(id: cookies[:user_id]).username %></b></p></li>
           <% end %>
 
           <li class="nav-item"><a class="nav-link" href="/signup">Sign Up</a></li>
