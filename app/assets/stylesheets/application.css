@@ -33,3 +33,21 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
+
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #000;
+}
+
+a:visited {
+  color: #000;
+}
+
+.card-body:hover {
+  background-color: rgba(204,229,255,0.5);
+}
+

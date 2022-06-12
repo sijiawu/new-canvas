@@ -2,7 +2,7 @@ class BooksController < ApplicationController
 
   def index
 
-    @books = Book.all.limit(100).order('created_at desc')
+    @submissions = Book.all.limit(100).order('created_at desc')
     
   end
 
