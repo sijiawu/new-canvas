@@ -69,10 +69,6 @@ submissions.each do |submission|
   d.save!
 end
 
-
-
-
-
 print "There are now #{User.count} users in the database.\n"
 print "There are now #{Submission.count} books in the database.\n"
 print "There are now #{Meeting.count} authors in the database.\n"

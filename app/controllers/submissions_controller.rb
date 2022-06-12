@@ -1,7 +1,6 @@
 class SubmissionsController < ApplicationController
 
-  def index    
-    @submissions = Meeting.find_by_id(params["id"]).submissions.sort_by(&:created_at)
+  def mine    
     
   end
 
@@ -22,11 +21,12 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    Book.create :title => params["title"],
-                :summary => params["summary"],
-                :cover_url => params["cover_url"],
-                :author_id => params["author_id"]
-    redirect_to "/"
+    Submission.create :content => params["content"],
+                      :meeting_id => params["meeting_id"],
+                      :user_id => params["user_id"]
+    meeting_title = Meeting.find_by_id(params["meeting_id"]).title
+
+    redirect_to "/submissions/#{meeting_title}", notice: "Success!"
   end
 
   def new

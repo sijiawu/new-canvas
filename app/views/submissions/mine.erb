@@ -1,25 +1,4 @@
-<% meeting = Meeting.find_by_title(params["title"]) %>
-<% @submissions = meeting.submissions.sort_by(&:created_at) %>
-
-<div class="card" style="margin-bottom:20px">
-  <div class="card-body">
-    <h4> Post your work for <%=meeting.title %> here </h4>
-  </div>
-</div>
-
-    <% if User.find_by(id: cookies[:user_id]) != nil %>
-      <%= form_tag "/submissions/", method: "post" do %>
-        <div class="form-group">
-          <textarea class="form-control" name="content" rows="3">Write your submission here</textarea>
-        </div>
-        <%= hidden_field_tag :meeting_id, meeting.id %>
-        <%= hidden_field_tag :user_id, cookies[:user_id] %>
-
-        <button class="btn btn-primary">Post</button>
-      <% end %>
-    <% else %>
-        <%= link_to "Log in to post your submission", "/sessions/new" %>
-    <% end %>
+<% @submissions = User.find_by(id: cookies[:user_id]).submissions.sort_by(&:created_at) %>
 
   <% @submissions.each do |submission| %>
   

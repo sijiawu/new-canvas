@@ -2,9 +2,9 @@ Rails.application.routes.draw do
 
   root 'meetings#index'
 
-  get "/submissions/:id" => 'submissions#index'
-  get "/books/new" => 'books#new'
-  post "/books" => 'books#create'
+  get "/submissions/:title" => 'submissions#index'
+  get "/my_submissions/" => 'submissions#mine'
+  post "/submissions" => 'submissions#create'
   # get "/submissions/:id" => 'submissions#show'
   delete "/books/:id" => 'books#destroy'
   get "/books/:id/edit" => 'books#edit'
