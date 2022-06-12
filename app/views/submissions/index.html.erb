@@ -6,7 +6,7 @@
   <% if User.find_by(id: cookies[:user_id]) != nil %>
     <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
       <p class="lead">
-        <center><a class="btn btn-primary btn-lg" href="/books/new" role="button">Add new book</a></center>
+        <center><a class="btn btn-primary btn-lg" href="/books/new" role="button">Add new meeting</a></center>
       </p>
     <% end %>
   <% end %>

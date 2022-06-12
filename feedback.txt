@@ -1,5 +1,0 @@
-Score: 20/20
-
-Looks good!  Feels just a little light - perhaps there's an interesting
-feature you can consider that would make this a bit more than
-just managing book titles.  But overall seems solid.

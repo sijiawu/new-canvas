@@ -1,21 +1,25 @@
-class AuthorsController < ApplicationController
+class MeetingsController < ApplicationController
+
+  def index
+    @meetings = Meeting.all.order('created_at desc')
+  end
 
   def update
     author = Author.find_by(id: params["id"])
     author.name = params["name"]
     author.save
-    redirect_to "/authors"
+    redirect_to "/meetings"
   end
 
   def destroy
     author = Author.find_by(id: params["id"])
     author.delete
-    redirect_to "/authors"
+    redirect_to "/meetings"
   end
 
   def create
     Author.create :name => params["name"]
-    redirect_to "/authors"
+    redirect_to "/meetings"
   end
 
   def new

@@ -2,119 +2,72 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 
-Book.delete_all
-Author.delete_all
+Submission.delete_all
+Meeting.delete_all
 User.delete_all
-Review.delete_all
+Comment.delete_all
 
-authors = ["Antoine de Saint-Exupery", "Agatha Christie", "Darren Hardy", "Harper Lee"]
-
-authors.each do |author|
-  Author.create name: author
-end
-
-author_data = {"The Little Prince" => "Antoine de Saint-Exupery",
-"And Then There Were None" => "Agatha Christie",
-"Compound Effect" => "Darren Hardy",
-"To Kill a Mockingbird" => "Harper Lee",
-"Murder on the Orient Express" => "Agatha Christie",
-"The Murder of Roger Ackroyd" => "Agatha Christie"}
-
-books = [
-  {
-    "title" => 'The Little Prince',
-    "cover_url" => 'https://images-na.ssl-images-amazon.com/images/I/416G7rmennL._SX311_BO1,204,203,200_.jpg',
-    "summary" => 'The little prince wants to return home to his tiny planet and his beloved flower. The way this is done, apparently, is to get bitten by a poisonous desert snake. This method sounds dubious to the narrator (and to Shmoop), but the prince is all about it. The snake bites the prince, who then collapses and disappears.'
-  },
-  {
-    "title" => 'And Then There Were None',
-    "cover_url" => 'http://s3.amazonaws.com/agatha-christie-cms-production/hcus-paperback/And-Then-There-Were-None-HarperCollins-US.png',
-    "summary" => "The novel opens with all of the main characters traveling by train or car to a ferry that will take them to a mysterious island named Indian Island. Each guest has received an invitation from a Mr. or Mrs. U.N. Owen, or a Mrs. Constance Culmington, to come to the island."
-  },
-  {
-    "title" => 'Compound Effect',
-    "cover_url" => 'https://images-na.ssl-images-amazon.com/images/I/51WrGFiSruL.jpg',
-    "summary" => "The compound effect is the strategy of reaping huge rewards from small, seemingly insignificant actions. You cannot improve something until you measure it. Always take 100 percent responsibility for everything that happens to you."
-  },
-  {
-    "title" => 'To Kill a Mockingbird',
-    "cover_url" => 'https://images-na.ssl-images-amazon.com/images/I/511VJ1l8eaL._SX308_BO1,204,203,200_.jpg',
-    "summary" => "To Kill a Mockingbird takes place in Alabama during the Depression, and is narrated by the main character, a little girl named Jean Louise \"Scout\" Finch. Her father, Atticus Finch, is a lawyer with high moral standards."
-  },
-  {
-    "title" => 'Murder on the Orient Express',
-    "cover_url" => "https://images-na.ssl-images-amazon.com/images/I/51%2B2QZIRWfL._SX308_BO1,204,203,200_.jpg",
-    "summary" => "A lavish trip through Europe quickly unfolds into a race against time to solve a murder aboard a train. When an avalanche stops the Orient Express dead in its tracks, the world's greatest detective -- Hercule Poirot -- arrives to interrogate all passengers and search for clues before the killer can strike again."
-  },
-  {
-    "title" => "The Murder of Roger Ackroyd",
-    "cover_url" => "http://deliberatereader.com/wp-content/uploads/2015/02/The-Murder-of-Roger-Ackroyd.jpg",
-    "summary" => "Roger Ackroyd was a man who knew too much. He knew the woman he loved had poisoned her first husband. He knew someone was blackmailing her – and no."
-  }
-]
-
-
-books.each do |book_data|
-  b = Book.new
-  b.title = book_data["title"]
-  b.summary = book_data["summary"]
-  b.cover_url = book_data["cover_url"]
-  b.author = Author.find_by(name: author_data[b.title])
-  if b.author == nil
-    b.author = Author.first
-  end
-  b.save
-end
-
-reviews = [
-  {
-    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
-    "creator" => "user1",
-    "book" => "Murder on the Orient Express"
-  },
-  {
-    "content" => "Another great book by Agatha Christie",
-    "creator" => "user1",
-    "book" => "The Murder of Roger Ackroyd"
-  },
-  {
-    "content" => "Wanted to see the movie after reading this book!",
-    "creator" => "user2",
-    "book" => "Murder on the Orient Express"
-  },  
-  {
-    "content" => "The saddest story in human history",
-    "creator" => "user2",
-    "book" => "The Little Prince"
-  },
-  {
-    "content" => "Just beautiful sadness",
-    "creator" => "user3",
-    "book" => "The Little Prince"
-  },
-  {
-    "content" => "SAD, SAD, SAD!",
-    "creator" => "user1",
-    "book" => "The Little Prince"
-  }
-]
-
-reviews.each do |review|
-  c = Review.new
-  c.content = review["content"]
-  c.creator = review["creator"]
-  c.book = Book.find_by(title: review["book"])
-  c.save
-end
-
-User.delete_all
 User.create username: 'user1', email: 'user1@example.org', password: 'user1pw'
 User.create username: 'user2', email: 'user2@example.org', password: 'user2pw'
 User.create username: 'user3', email: 'user3@example.org', password: 'user3pw'
 User.create username: 'admin', email: 'admin@example.org', password: 'admin'
 
-print "There are now #{User.count} users in the database.\n"
-print "There are now #{Book.count} books in the database.\n"
-print "There are now #{Author.count} authors in the database.\n"
-print "There are now #{Review.count} reviews in the database.\n"
+Meeting.create title: '06-29-2022'
+Meeting.create title: '07-29-2022'
 
+
+
+submissions = [
+  {
+    "content" => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Isto modo, ne si avia quidem eius nata non esset. Sit hoc ultimum bonorum, quod nunc a me defenditur; Memini me adesse P. <i>Quae ista amicitia est?</i> Sed eum qui audiebant, quoad poterant, defendebant sententiam suam. Duo Reges: constructio interrete. Eaedem res maneant alio modo. Tubulum fuisse, qua illum, cuius is condemnatus est rogatione, P. At habetur! Et ego id scilicet nesciebam! Sed ut sit, etiamne post mortem coletur? Sin kakan malitiam dixisses, ad aliud nos unum certum vitium consuetudo Latina traduceret. </p>
+
+    <p><b>Tu vero, inquam, ducas licet, si sequetur;</b> Habes, inquam, Cato, formam eorum, de quibus loquor, philosophorum. Apparet statim, quae sint officia, quae actiones. <i>Tum Triarius: Posthac quidem, inquit, audacius.</i> Quippe: habes enim a rhetoribus; Hoc loco tenere se Triarius non potuit. </p>
+    
+    <p><i>Negat enim summo bono afferre incrementum diem.</i> Non dolere, inquam, istud quam vim habeat postea videro; Quae quidem sapientes sequuntur duce natura tamquam videntes; Quis enim redargueret? Est enim tanti philosophi tamque nobilis audacter sua decreta defendere. <i>Proclivi currit oratio.</i> </p>
+    ',
+    "meeting" => "06-29-2022",
+    "creator" => "user1",
+  },
+  {
+    "content" => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inquit, dasne adolescenti veniam? <b>Ne amores quidem sanctos a sapiente alienos esse arbitrantur.</b> Tum Quintus: Est plane, Piso, ut dicis, inquit. Ex quo intellegitur officium medium quiddam esse, quod neque in bonis ponatur neque in contrariis. Illa sunt similia: hebes acies est cuipiam oculorum, corpore alius senescit; Vide, quaeso, rectumne sit. <a href="http://loripsum.net/" target="_blank">Cur, nisi quod turpis oratio est?</a> Duo Reges: constructio interrete. <b>Conferam avum tuum Drusum cum C.</b> Sin aliud quid voles, postea. Ergo hoc quidem apparet, nos ad agendum esse natos. Quonam, inquit, modo? </p>
+
+    <p>Non est igitur voluptas bonum. Dici enim nihil potest verius. Non est enim vitium in oratione solum, sed etiam in moribus. Plane idem, inquit, et maxima quidem, qua fieri nulla maior potest. <a href="http://loripsum.net/" target="_blank">Quod totum contra est.</a> Quid est, quod ab ea absolvi et perfici debeat? </p>
+    
+    <p><i>Tecum optime, deinde etiam cum mediocri amico.</i> Moriatur, inquit. Atque haec ita iustitiae propria sunt, ut sint virtutum reliquarum communia. Ut enim consuetudo loquitur, id solum dicitur honestum, quod est populari fama gloriosum. <a href="http://loripsum.net/" target="_blank">Nam quid possumus facere melius?</a> Sit hoc ultimum bonorum, quod nunc a me defenditur; Quod iam a me expectare noli. <a href="http://loripsum.net/" target="_blank">Est enim effectrix multarum et magnarum voluptatum.</a> </p>
+    ',
+    "meeting" => "06-29-2022",
+    "creator" => "user2",
+  },
+]
+
+submissions.each do |submission|
+  s = Submission.new
+  s.content = submission["content"]
+  s.user = User.first
+  s.meeting = Meeting.find_by(title: submission["meeting"])
+  s.save!
+end
+
+comments = [
+  {
+    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
+    "creator" => "user2",
+  },
+  {
+    "content" => "Thank you user2",
+    "creator" => "user1",
+  },
+]
+
+comments.each do |comment|
+  c = Comment.new
+  c.content = comment["content"]
+  c.user = User.first
+  c.submission = Submission.first
+  c.save
+end
+
+print "There are now #{User.count} users in the database.\n"
+print "There are now #{Submission.count} books in the database.\n"
+print "There are now #{Meeting.count} authors in the database.\n"
+print "There are now #{Comment.count} comments in the database.\n"

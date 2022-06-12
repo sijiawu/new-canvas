@@ -1,18 +1,17 @@
-Author
-  name: text
+Meeting
+  title: text
 
 User
   username: text
   email: text
   password_digest: text
 
-Book
-  title: text
-  summary: text
-  cover_url: text
-  author_id: integer
+Submission
+  content: text
+  user_id: integer
+  meeting_id: integer
 
 Review
   content: text
-  creator: text
-  book_id: integer
+  user_id: text
+  submission_id: integer

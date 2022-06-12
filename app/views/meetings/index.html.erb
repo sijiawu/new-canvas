@@ -1,0 +1,21 @@
+<div class="row">
+
+
+  <% if User.find_by(id: cookies[:user_id]) != nil %>
+    <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+      <div class="my-3">
+        <%= link_to "Add a New Author", "/authors/new", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% @meetings.each do |meeting| %>
+  <div class="card">
+    <div class="card-body">
+      Post your work for <%= meeting.title %> here
+    </div>
+  </div>
+
+
+  <% end %>
+</div>

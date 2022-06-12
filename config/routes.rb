@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'books#index'
+  root 'meetings#index'
 
   get "/books" => "books#index"
   get "/books/new" => 'books#new'
