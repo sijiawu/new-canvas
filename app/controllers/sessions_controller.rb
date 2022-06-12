@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
   def delete
     cookies.delete(:user_id)
     # cookies
-    redirect_to "/books", notice: "Successfully logged out!"
+    redirect_to :root, notice: "You have logged out successfully!"
   end
 end

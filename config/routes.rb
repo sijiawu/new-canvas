@@ -2,10 +2,10 @@ Rails.application.routes.draw do
 
   root 'meetings#index'
 
-  get "/books" => "books#index"
+  get "/submissions/:id" => 'submissions#index'
   get "/books/new" => 'books#new'
   post "/books" => 'books#create'
-  get "/books/:id" => 'books#show'
+  # get "/submissions/:id" => 'submissions#show'
   delete "/books/:id" => 'books#destroy'
   get "/books/:id/edit" => 'books#edit'
   patch "/books/:id" => 'books#update'

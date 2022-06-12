@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
 
   def index
-    @meetings = Meeting.all.order('created_at desc')
+    @meetings = Meeting.all.order('created_at')
   end
 
   def update

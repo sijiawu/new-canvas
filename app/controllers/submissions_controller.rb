@@ -1,8 +1,7 @@
-class BooksController < ApplicationController
+class SubmissionsController < ApplicationController
 
-  def index
-
-    @submissions = Book.all.limit(100).order('created_at desc')
+  def index    
+    @submissions = Meeting.find_by_id(params["id"]).submissions.sort_by(&:created_at)
     
   end
 

@@ -7,9 +7,8 @@ Meeting.delete_all
 User.delete_all
 Comment.delete_all
 
-User.create username: 'user1', email: 'user1@example.org', password: 'user1pw'
-User.create username: 'user2', email: 'user2@example.org', password: 'user2pw'
-User.create username: 'user3', email: 'user3@example.org', password: 'user3pw'
+User.create username: 'Spongebob Squarepants', email: 'user1@example.org', password: 'user1pw'
+User.create username: 'Squidward', email: 'user2@example.org', password: 'user2pw'
 User.create username: 'admin', email: 'admin@example.org', password: 'admin'
 
 Meeting.create title: '06-29-2022'
@@ -26,7 +25,7 @@ submissions = [
     <p><i>Negat enim summo bono afferre incrementum diem.</i> Non dolere, inquam, istud quam vim habeat postea videro; Quae quidem sapientes sequuntur duce natura tamquam videntes; Quis enim redargueret? Est enim tanti philosophi tamque nobilis audacter sua decreta defendere. <i>Proclivi currit oratio.</i> </p>
     ',
     "meeting" => "06-29-2022",
-    "creator" => "user1",
+    "creator" => "user1@example.org",
   },
   {
     "content" => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inquit, dasne adolescenti veniam? <b>Ne amores quidem sanctos a sapiente alienos esse arbitrantur.</b> Tum Quintus: Est plane, Piso, ut dicis, inquit. Ex quo intellegitur officium medium quiddam esse, quod neque in bonis ponatur neque in contrariis. Illa sunt similia: hebes acies est cuipiam oculorum, corpore alius senescit; Vide, quaeso, rectumne sit. <a href="http://loripsum.net/" target="_blank">Cur, nisi quod turpis oratio est?</a> Duo Reges: constructio interrete. <b>Conferam avum tuum Drusum cum C.</b> Sin aliud quid voles, postea. Ergo hoc quidem apparet, nos ad agendum esse natos. Quonam, inquit, modo? </p>
@@ -36,36 +35,43 @@ submissions = [
     <p><i>Tecum optime, deinde etiam cum mediocri amico.</i> Moriatur, inquit. Atque haec ita iustitiae propria sunt, ut sint virtutum reliquarum communia. Ut enim consuetudo loquitur, id solum dicitur honestum, quod est populari fama gloriosum. <a href="http://loripsum.net/" target="_blank">Nam quid possumus facere melius?</a> Sit hoc ultimum bonorum, quod nunc a me defenditur; Quod iam a me expectare noli. <a href="http://loripsum.net/" target="_blank">Est enim effectrix multarum et magnarum voluptatum.</a> </p>
     ',
     "meeting" => "06-29-2022",
-    "creator" => "user2",
+    "creator" => "user2@example.org",
+  },
+]
+comments = [
+  {
+    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
+    "creator" => "user2@example.org",
+  },
+  {
+    "content" => "Thank you user2",
+    "creator" => "user1@example.org",
   },
 ]
 
 submissions.each do |submission|
   s = Submission.new
   s.content = submission["content"]
-  s.user = User.first
+  s.user = User.find_by(email: submission["creator"])
   s.meeting = Meeting.find_by(title: submission["meeting"])
   s.save!
-end
 
-comments = [
-  {
-    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
-    "creator" => "user2",
-  },
-  {
-    "content" => "Thank you user2",
-    "creator" => "user1",
-  },
-]
-
-comments.each do |comment|
   c = Comment.new
-  c.content = comment["content"]
-  c.user = User.first
-  c.submission = Submission.first
-  c.save
+  c.content = comments.first["content"]
+  c.user = User.find_by(email: comments.first["creator"])
+  c.submission = s
+  c.save!
+
+  d = Comment.new
+  d.content = comments.last["content"]
+  d.user = User.find_by(email: comments.last["creator"])
+  d.submission = s
+  d.save!
 end
+
+
+
+
 
 print "There are now #{User.count} users in the database.\n"
 print "There are now #{Submission.count} books in the database.\n"
