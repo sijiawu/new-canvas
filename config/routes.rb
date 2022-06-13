@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   get "/my_submissions/" => 'submissions#mine'
   post "/submissions" => 'submissions#create'
   get "/submissions/user/:user_id" => 'submissions#show'
-  delete "/books/:id" => 'books#destroy'
-  get "/books/:id/edit" => 'books#edit'
-  patch "/books/:id" => 'books#update'
+  delete "/submissions/:id" => 'submissions#destroy'
+  get "/submissions/:id/edit" => 'submissions#edit'
+  patch "/submissions/:id" => 'submissions#update'
 
   get "/meetings" => "meetings#index"
   get "/meetings/new" => 'meetings#new'
@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   post "/sessions" => "sessions#create"
   get "/logout" => "sessions#delete"
 
-
   get "/users" => "users#index"
   get "/users/new" => 'users#new'
   post "/users" => 'users#create'
@@ -33,6 +32,7 @@ Rails.application.routes.draw do
   patch "/users/:id" => 'users#update'
 
   post "/comments" => 'comments#create'
-
-
+  delete "/comments/:id" => 'comments#destroy'
+  get "/comments/:id/edit" => 'comments#edit'
+  patch "/comments/:id" => 'comments#update'
 end

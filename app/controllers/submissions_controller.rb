@@ -5,24 +5,25 @@ class SubmissionsController < ApplicationController
   end
 
   def show
-    # someone's submissions
+    # someone else's submissions
     
   end
 
   def update
-    book = Book.find_by(id: params["id"])
-    book.title = params["title"]
-    book.summary = params["summary"]
-    book.cover_url = params["cover_url"]
-    book.author_id = params["author_id"]
-    book.save
+    submission = Submission.find_by(id: params["id"])
+    submission.title = params["title"]
+    submission.summary = params["summary"]
+    submission.cover_url = params["cover_url"]
+    submission.author_id = params["author_id"]
+    submission.save
     redirect_to "/"
   end
 
   def destroy
-    book = Book.find_by(id: params["id"])
-    book.delete
-    redirect_to "/"
+    submission = Submission.find_by(id: params["id"])
+    meeting = submission.meeting
+    submission.delete
+    redirect_to "/submissions/#{meeting.title}", notice: "Success!"
   end
 
   def create

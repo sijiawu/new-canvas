@@ -34,14 +34,26 @@
 }
 
 a {
-  color: #000;
+  color:#347bad;
 }
 
 a:hover {
-  color: #000;
+  color: #347bad;
 }
 
 a:visited {
+  color: #347bad;
+}
+
+.meeting-title {
+  color: #000;
+}
+
+.meeting-title:hover {
+  color: #000;
+}
+
+.meeting-title:visited {
   color: #000;
 }
 
