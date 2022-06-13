@@ -23,14 +23,6 @@
         </div>
 
         <%= raw(submission.content) %>
-
-        <% if User.find_by(id: cookies[:user_id]) != nil %>
-          <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
-            <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
-            <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
-          <% end %>
-        <% end %>
-
       </div>
     </div>
 
@@ -50,14 +42,6 @@
           </div>
 
           <%= raw(comment.content) %>
-
-          <% if User.find_by(id: cookies[:user_id]) != nil %>
-            <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
-              <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
-              <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
-            <% end %>
-          <% end %>
-
         </div>
       </div>
     <% end %>

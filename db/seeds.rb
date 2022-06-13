@@ -91,6 +91,6 @@ d.submission = Submission.last
 d.save!
 
 print "There are now #{User.count} users in the database.\n"
-print "There are now #{Submission.count} books in the database.\n"
+print "There are now #{Submission.count} submissions in the database.\n"
 print "There are now #{Meeting.count} meetings in the database.\n"
 print "There are now #{Comment.count} comments in the database.\n"
