@@ -5,21 +5,21 @@ class MeetingsController < ApplicationController
   end
 
   def update
-    author = Author.find_by(id: params["id"])
-    author.name = params["name"]
-    author.save
-    redirect_to "/meetings"
+    meeting = Meeting.find_by(id: params["id"])
+    meeting.title = params["title"]
+    meeting.save
+    redirect_to "/", notice: "Success!"
   end
 
   def destroy
-    author = Author.find_by(id: params["id"])
-    author.delete
-    redirect_to "/meetings"
+    meeting = Meeting.find_by(id: params["id"])
+    meeting.delete
+    redirect_to "/", notice: "Success!"
   end
 
   def create
-    Author.create :name => params["name"]
-    redirect_to "/meetings"
+    Meeting.create :title => params["title"]
+    redirect_to "/", notice: "Success!"
   end
 
   def new

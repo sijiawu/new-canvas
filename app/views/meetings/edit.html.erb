@@ -1,15 +1,13 @@
-<% author = Author.find_by(id: params["id"]) %>
-
-<h1>Editing <%= author.name %></h1>
+<% meeting = Meeting.find_by(id: params["id"]) %>
 
 <div class="row">
   <div class="col-sm-4">
 
-    <%= form_tag "/authors/#{author.id}", method: "patch" do %>
+    <%= form_tag "/meetings/#{meeting.id}", method: "patch" do %>
 
-      <p>Name: <input value="<%= author.name %>" name="name" type="text" autofocus class="form-control"></p>
+      <p>New title (date in MM-DD-YY format): <input value="<%= meeting.title %>" name="title" type="text" autofocus class="form-control"></p>
 
-      <button class="btn btn-primary">Update author</button>
+      <button class="btn btn-primary">Update meeting</button>
 
     <% end %>
 

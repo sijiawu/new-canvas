@@ -10,13 +10,12 @@ Rails.application.routes.draw do
   get "/books/:id/edit" => 'books#edit'
   patch "/books/:id" => 'books#update'
 
-  get "/authors" => "authors#index"
-  get "/authors/new" => 'authors#new'
-  post "/authors" => 'authors#create'
-  get "/authors/:id" => 'authors#show'
-  delete "/authors/:id" => 'authors#destroy'
-  get "/authors/:id/edit" => 'authors#edit'
-  patch "/authors/:id" => 'authors#update'
+  get "/meetings" => "meetings#index"
+  get "/meetings/new" => 'meetings#new'
+  post "/meetings" => 'meetings#create'
+  delete "/meetings/:id" => 'meetings#destroy'
+  get "/meetings/:id/edit" => 'meetings#edit'
+  patch "/meetings/:id" => 'meetings#update'
 
   get "/signup" => "users#new"
 

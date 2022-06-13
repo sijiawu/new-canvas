@@ -45,8 +45,8 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="/my_submissions">My Submissions</a></li>
           <% if User.find_by(id: cookies[:user_id]) != nil %>
+            <li class="nav-item"><a class="nav-link" href="/my_submissions">My Submissions</a></li>
             <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
               <li class="nav-item"><a class="nav-link" href="/users">Users</a></li>
             <% end %>

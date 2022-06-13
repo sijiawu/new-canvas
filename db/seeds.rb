@@ -8,13 +8,10 @@ User.delete_all
 Comment.delete_all
 
 User.create username: 'Spongebob Squarepants', email: 'user1@example.org', password: 'user1pw'
-User.create username: 'Squidward', email: 'user2@example.org', password: 'user2pw'
+User.create username: 'Patrick', email: 'user2@example.org', password: 'user2pw'
 User.create username: 'admin', email: 'admin@example.org', password: 'admin'
 
 Meeting.create title: '06-29-2022'
-Meeting.create title: '07-29-2022'
-
-
 
 submissions = [
   {
@@ -38,36 +35,60 @@ submissions = [
     "creator" => "user2@example.org",
   },
 ]
-comments = [
+comments_2 = [
   {
-    "content" => "Fascinating story!!! Would've never guessed the end, but it makes so much sense",
+    "content" => "Poignant, powerful, and masterfully crafted. Love it!!",
     "creator" => "user2@example.org",
   },
   {
-    "content" => "Thank you user2",
+    "content" => "Thank you!",
     "creator" => "user1@example.org",
   },
 ]
 
-submissions.each do |submission|
+comments_1 = [
+  {
+    "content" => "This is the <b>best</b> thing I've <i>ever</i> read <strike> since birth </strike>",
+    "creator" => "user1@example.org",
+  },
+  {
+    "content" => "Thank you!",
+    "creator" => "user2@example.org",
+  },
+]
+
+submissions.each_with_index do |submission,index|
   s = Submission.new
   s.content = submission["content"]
   s.user = User.find_by(email: submission["creator"])
   s.meeting = Meeting.find_by(title: submission["meeting"])
   s.save!
-
-  c = Comment.new
-  c.content = comments.first["content"]
-  c.user = User.find_by(email: comments.first["creator"])
-  c.submission = s
-  c.save!
-
-  d = Comment.new
-  d.content = comments.last["content"]
-  d.user = User.find_by(email: comments.last["creator"])
-  d.submission = s
-  d.save!
 end
+
+
+c = Comment.new
+c.content = comments_1.first["content"]
+c.user = User.find_by(email: comments_2.first["creator"])
+c.submission = Submission.first
+c.save!
+
+d = Comment.new
+d.content = comments_2.last["content"]
+d.user = User.find_by(email: comments_2.last["creator"])
+d.submission = Submission.first
+d.save!
+
+c = Comment.new
+c.content = comments_2.first["content"]
+c.user = User.find_by(email: comments_1.first["creator"])
+c.submission = Submission.last
+c.save!
+
+d = Comment.new
+d.content = comments_1.last["content"]
+d.user = User.find_by(email: comments_1.last["creator"])
+d.submission = Submission.last
+d.save!
 
 print "There are now #{User.count} users in the database.\n"
 print "There are now #{Submission.count} books in the database.\n"
