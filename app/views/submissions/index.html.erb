@@ -9,9 +9,12 @@
 
     <% if User.find_by(id: cookies[:user_id]) != nil %>
       <%= form_tag "/submissions/", method: "post" do %>
+
+        <div id="editor" class="border"></div>
         <div class="form-group">
-          <textarea class="form-control" name="content" rows="3">Write your submission here</textarea>
+          <textarea id="markup" class="form-control" name="content" style="display:none;"></textarea>
         </div>
+
         <%= hidden_field_tag :meeting_id, meeting.id %>
         <%= hidden_field_tag :user_id, cookies[:user_id] %>
 
@@ -78,4 +81,20 @@
     <% end %>
 
   <% end %>
-<hr style="margin-top:20px;">
+  <hr style="margin-top:20px;">
+
+  <script>
+    const pell = window.pell;
+    const editor = document.getElementById("editor");
+    const markup = document.getElementById("markup");
+
+    pell.init({
+      element: editor,
+      actions: ['bold', 'italic', 'heading1', 'heading2', 'underline','strikethrough','olist', 'ulist','line'],
+      onChange: (html) => {
+        markup.innerHTML = "";
+        markup.innerText += html;
+      }
+    })
+
+  </script>
