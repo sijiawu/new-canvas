@@ -102,7 +102,7 @@
 
               <% if User.find_by(id: cookies[:user_id]) != nil %>
                 <% if User.find_by(id: cookies[:user_id]).id == comment.user.id %>
-                  <hr>
+                <hr>
                   <%= link_to "[Delete]", "/comments/#{comment.id}", method: "delete", data: { confirm: "Are you sure you want to delete this comment?" } %>
                   <%= link_to "[Edit]", "/comments/#{comment.id}/edit" %>
                 <% end %>

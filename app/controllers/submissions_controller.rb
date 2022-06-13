@@ -11,12 +11,9 @@ class SubmissionsController < ApplicationController
 
   def update
     submission = Submission.find_by(id: params["id"])
-    submission.title = params["title"]
-    submission.summary = params["summary"]
-    submission.cover_url = params["cover_url"]
-    submission.author_id = params["author_id"]
+    submission.content = params["content"]
     submission.save
-    redirect_to "/"
+    redirect_to "/submissions/#{submission.meeting.title}", notice: "Success!"
   end
 
   def destroy
@@ -48,14 +45,7 @@ class SubmissionsController < ApplicationController
   end
 
   def edit
-    if User.find_by(id: cookies[:user_id]) != nil
-      if User.find_by(id: cookies[:user_id]).username == "admin"
-        render 'edit'
-      else 
-        redirect_to "/", notice: "You do not have permission to access this page"
-      end
-    else 
-      redirect_to "/", notice: "You do not have permission to access this page"  
-    end
+    @submission = Submission.find_by(id: params["id"])
+    render 'edit'
   end
 end

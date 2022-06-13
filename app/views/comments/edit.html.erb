@@ -1,7 +1,7 @@
-<h4>Editing submission...</h4>
+<h4>Editing comment...</h4>
 <div class="row">
   <div class="col-sm-8">
-    <%= form_tag "/submissions/#{params["id"]}", method: "patch" do %>
+    <%= form_tag "/comments/#{params["id"]}", method: "patch" do %>
 
       <div id="editor" class="border">
       </div>
@@ -10,7 +10,7 @@
       </div>
 
       <div id="friend-of-js" style="display:none;">
-        <%= raw(@submission.content) %>
+        <%= raw(@comment.content) %>
       </div>
 
       <button class="btn btn-primary">Done</button>
