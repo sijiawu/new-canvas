@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get "/users/:id/edit" => 'users#edit'
   patch "/users/:id" => 'users#update'
 
-  post "/reviews" => 'reviews#create'
+  post "/comments" => 'comments#create'
 
 
 end

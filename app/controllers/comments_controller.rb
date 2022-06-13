@@ -1,11 +1,11 @@
-class ReviewsController < ApplicationController
+class CommentsController < ApplicationController
 
   def create
-    Review.create :content => params["content"],
-                  :creator => User.find_by(id: cookies[:user_id]).username,
-                  :book => Book.find_by(title: params[:book_id])
+    Comment.create :content => params["content"],
+                   :submission_id => params["submission_id"],
+                   :user_id => params["user_id"]
 
 
-    redirect_to "/books/#{Book.find_by(title: params[:book_id]).id}"
+    redirect_to "/submissions/#{Submission.find_by_id(params["submission_id"]).meeting.title}"
   end
 end

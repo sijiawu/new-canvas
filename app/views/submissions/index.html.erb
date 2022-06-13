@@ -2,72 +2,51 @@
 <% @submissions = meeting.submissions.sort_by(&:created_at) %>
 
 <div class="card" style="margin-bottom:20px">
-  <div class="card-body">
+  <div class="card-body" style="padding-top: 30px">
     <h4> Post your work for <%=meeting.title %> here </h4>
   </div>
 </div>
 
     <% if User.find_by(id: cookies[:user_id]) != nil %>
-      <%= form_tag "/submissions/", method: "post" do %>
-
-        <div id="editor" class="border"></div>
-        <div class="form-group">
-          <textarea id="markup" class="form-control" name="content" style="display:none;"></textarea>
-        </div>
-
-        <%= hidden_field_tag :meeting_id, meeting.id %>
-        <%= hidden_field_tag :user_id, cookies[:user_id] %>
-
-        <button class="btn btn-primary">Post</button>
-      <% end %>
-    <% else %>
-        <%= link_to "Log in to post your submission", "/sessions/new" %>
-    <% end %>
-
-  <% @submissions.each do |submission| %>
-  
-    <div class="card" style="margin-top:20px">
-
-      <div class="card-body">
-        <div style="margin-bottom:20px">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-          </svg>
-          <div>
-            <%= link_to "#{submission.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad;"} %>
-            <p style="font-size: small"><%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
-          </div>
-        </div>
-
-        <%= raw(submission.content) %>
-
-        <% if User.find_by(id: cookies[:user_id]) != nil %>
-          <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
-            <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
-            <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
-          <% end %>
-        <% end %>
-
+      <div onclick="document.getElementById('reply-block').style.display='inline';this.style.display='none';">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16" style="float:left; margin:10px 10px 0">
+          <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+        </svg>
+        <p style="cursor: pointer;" >Reply</p>
       </div>
-    </div>
 
-    <% submission.comments.each do |comment| %>
-      <div class="card" style="margin-left:20px;">
+      <div id="reply-block" style="display:none">
+        <%= form_tag "/submissions/", method: "post" do %>
+
+          <div id="editor" class="editor border"></div>
+          <div class="form-group">
+            <textarea class="form-control markup" name="content" style="display:none;"></textarea>
+          </div>
+
+          <%= hidden_field_tag :meeting_id, meeting.id %>
+          <%= hidden_field_tag :user_id, cookies[:user_id] %>
+
+          <button class="btn btn-primary btn-block">Post Submission</button>
+        <% end %>
+      </div>
+      
+      <% @submissions.each_with_index do |submission, index| %>
+  
+      <div class="card" style="margin-top:20px">
 
         <div class="card-body">
           <div style="margin-bottom:20px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
               <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
             </svg>
             <div>
-              <%= link_to "#{comment.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
-              <p style="font-size: x-small"><%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
+              <%= link_to "#{submission.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad;"} %>
+              <p style="font-size: small"><%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
             </div>
           </div>
 
-          <%= raw(comment.content) %>
+          <%= raw(submission.content) %>
 
           <% if User.find_by(id: cookies[:user_id]) != nil %>
             <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
@@ -76,25 +55,82 @@
             <% end %>
           <% end %>
 
+          <div style="padding-top: 10px;" onclick="document.getElementById('reply-submission-<%= index %>').style.display='inline';this.style.display='none';">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16" style="float:left; margin:10px 10px 0">
+              <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
+            </svg>
+            <p style="cursor: pointer;" >Reply</p>
+          </div>
+
         </div>
       </div>
+
+        <div id="<%= "reply-submission-#{index}" %>", style="display:none" %>
+          <%= form_tag "/comments/", method: "post" do %>
+
+            <div class="editor border" style="height:120px"></div>
+            <div class="form-group">
+              <textarea class="form-control markup" name="content" style="display:none;"></textarea>
+            </div>
+
+            <%= hidden_field_tag :submission_id, submission.id %>
+            <%= hidden_field_tag :user_id, cookies[:user_id] %>
+
+            <button class="btn btn-primary btn-block">Post Comment</button>
+          <% end %>
+        </div>
+
+        <% submission.comments.each do |comment| %>
+          <div class="card" style="margin-left:20px;">
+
+            <div class="card-body">
+              <div style="margin-bottom:20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <div>
+                  <%= link_to "#{comment.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
+                  <p style="font-size: x-small"><%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
+                </div>
+              </div>
+
+              <%= raw(comment.content) %>
+
+              <% if User.find_by(id: cookies[:user_id]) != nil %>
+                <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+                  <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
+                  <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+                <% end %>
+              <% end %>
+
+            </div>
+          </div>
+        <% end %>
+    <% end %>
+    <% else %>
+      <%= link_to "Please log in to view or post submissions", "/sessions/new" %>
     <% end %>
 
-  <% end %>
+  
   <hr style="margin-top:20px;">
 
   <script>
     const pell = window.pell;
-    const editor = document.getElementById("editor");
-    const markup = document.getElementById("markup");
+    const editors = document.getElementsByClassName("editor");
+    const markups = document.getElementsByClassName("markup");
 
-    pell.init({
-      element: editor,
-      actions: ['bold', 'italic', 'heading1', 'heading2', 'underline','strikethrough','olist', 'ulist','line'],
-      onChange: (html) => {
-        markup.innerHTML = "";
-        markup.innerText += html;
-      }
-    })
+    for (let index = 0; index < editors.length; ++index) {
+      const editor = editors[index];
+      const markup = markups[index];
+      pell.init({
+        element: editor,
+        actions: ['bold', 'italic', 'heading1', 'heading2', 'underline','strikethrough','olist', 'ulist','line'],
+        onChange: (html) => {
+          markup.innerHTML = "";
+          markup.innerText += html;
+        }
+      })
+    }
 
   </script>

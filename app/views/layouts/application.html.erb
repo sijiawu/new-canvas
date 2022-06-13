@@ -11,6 +11,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/pell/dist/pell.min.css">
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script>window.jQuery || document.write('<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"><\/script>')</script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>window.jQuery.fn.modal || document.write('<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"><\/script>')</script>
+    <script>
+        (function($) {
+            $(function() {
+                if ($('body').css('color') !== 'rgb(51, 51, 51)') {
+                    $('head').prepend('<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.0.0/css/bootstrap.min.css">');
+                }
+            });
+        })(window.jQuery);
+    </script>
+
+
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
 
@@ -32,13 +51,11 @@
               <li class="nav-item"><a class="nav-link" href="/users">Users</a></li>
             <% end %>
           <% end %>
-
-          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
           <% if User.find_by(id: cookies[:user_id]) != nil %>
-            <li class="nav-item"><p class="nav-link">Signed in as <b><%= User.find_by(id: cookies[:user_id]).username %></b></p></li>
+            <li class="nav-item"><a class="nav-link">Signed in as <b><%= User.find_by(id: cookies[:user_id]).username %></b></a></li>
           <% end %>
 
           <% if cookies[:user_id] != nil %>
@@ -47,8 +64,7 @@
             <li class="nav-item"><a class="nav-link" href="/signup">Sign Up</a></li>
             <li class="nav-item"><a class="nav-link" href="/sessions/new">Log in</a></li>
           <% end %>
-        </li>
-      </ul>
+        </ul>
       </div>
 
 
