@@ -11,7 +11,7 @@ Submission
   user_id: integer
   meeting_id: integer
 
-Review
+Comment
   content: text
-  user_id: text
+  user_id: integer
   submission_id: integer
