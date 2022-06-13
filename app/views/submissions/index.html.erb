@@ -41,7 +41,7 @@
               <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
             </svg>
             <div>
-              <%= link_to "#{submission.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad;"} %>
+              <%= link_to "#{submission.user.username}", "/submissions/user/#{submission.user.id}", {:style=>"color:#347bad;"} %>
               <p style="font-size: small"><%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
             </div>
           </div>
@@ -90,7 +90,7 @@
                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                 </svg>
                 <div>
-                  <%= link_to "#{comment.user.username}", "/submissions/user/:#{submission.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
+                  <%= link_to "#{comment.user.username}", "/submissions/user/#{comment.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
                   <p style="font-size: x-small"><%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
                 </div>
               </div>

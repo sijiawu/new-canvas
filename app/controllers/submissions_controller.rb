@@ -4,6 +4,11 @@ class SubmissionsController < ApplicationController
     
   end
 
+  def show
+    # someone's submissions
+    
+  end
+
   def update
     book = Book.find_by(id: params["id"])
     book.title = params["title"]
@@ -34,10 +39,10 @@ class SubmissionsController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'new'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 
@@ -46,10 +51,10 @@ class SubmissionsController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'edit'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 end

@@ -1,59 +1,66 @@
-<% book = Book.find_by(id: params["id"]) %>
+<% user = User.find_by(id: params[:user_id]) %>
 
-<div class="row">
-  <div class="col-sm-6">
-    <h1><%= book.title %></h1>
-    <% if book.author.present? %>
-      <p class="lead">Written By: <%= link_to book.author.name, "/authors/#{book.author.id}" %></p>
-    <% end %>
+<div class="card" style="margin-bottom:20px">
+  <div class="card-body" style="padding-top: 30px">
+    <h4> <%=user.username %>'s submissions </h4>
   </div>
 </div>
-<div class="row">
-  <div class="col-sm-5">
-    <%= image_tag book.cover_url %>
-  </div>
-  <div class="col-sm-7">
-    <h2>Summary: </h2>
-    <p><%= book.summary %></p>
-    <hr class="my-4">
 
-    <% if book.author.present? %>
-      <h2>Books by this author:</h2>
+  <% user.submissions.each do |submission| %>
+  
+    <div class="card" style="margin-top:20px">
 
-      <div class="row">
-        <% book.author.books.each do |book| %>
-          <div class="col-sm-2">
-            <%= link_to image_tag(book.cover_url, class: 'img-fluid'), "/books/#{book.id}" %>
+      <div class="card-body">
+        <div style="margin-bottom:20px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+          <div>
+            <%= link_to "#{submission.user.username}", "/submissions/user/#{submission.user.id}", {:style=>"color:#347bad;"} %>
+            <p style="font-size: small"><%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
           </div>
+        </div>
+
+        <%= raw(submission.content) %>
+
+        <% if User.find_by(id: cookies[:user_id]) != nil %>
+          <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+            <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
+            <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+          <% end %>
         <% end %>
+
+      </div>
+    </div>
+
+    <% submission.comments.each do |comment| %>
+      <div class="card" style="margin-left:20px;">
+
+        <div class="card-body">
+          <div style="margin-bottom:20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="gray" class="bi bi-person-circle" viewBox="0 0 16 16" style="float:left; margin-right:20px">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            <div>
+              <%= link_to "#{comment.user.username}", "/submissions/user/#{comment.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
+              <p style="font-size: x-small"><%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
+            </div>
+          </div>
+
+          <%= raw(comment.content) %>
+
+          <% if User.find_by(id: cookies[:user_id]) != nil %>
+            <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
+              <%= link_to "[Delete]", "/books/#{book.id}", method: "delete" %>
+              <%= link_to "[Edit]", "/books/#{book.id}/edit" %>
+            <% end %>
+          <% end %>
+
+        </div>
       </div>
     <% end %>
 
-    <hr class="my-4">
-
-    <% if book.reviews.present? %>
-      <h2>What people say about this book: </h2>
-      <% book.reviews.each do |review| %>
-        <div class="alert alert-dark">
-          <%= review.creator %> says:  <%= review.content %>
-        </div>
-      <% end %>
-    <% end %>
-    
-    <% if User.find_by(id: cookies[:user_id]) != nil %>
-        <%= form_tag "/reviews/", method: "post" do %>
-          <div class="form-group">
-            <textarea class="form-control" name="content" rows="2">Say something!</textarea>
-          </div>
-          <%= hidden_field_tag :book_id, book.title %>
-          
-          <button class="btn btn-primary">Add Review</button>
-        <% end %>
-    <% else %>
-        <%= link_to "Log in to add a review", "/sessions/new" %>
-    <% end %>
-
-  </div>
-</div>
-
-
+  <% end %>
+<hr style="margin-top:20px;">

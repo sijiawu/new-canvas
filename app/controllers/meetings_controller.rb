@@ -27,10 +27,10 @@ class MeetingsController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'new'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 
@@ -39,10 +39,10 @@ class MeetingsController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'edit'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 

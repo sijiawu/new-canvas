@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/submissions/:title" => 'submissions#index'
   get "/my_submissions/" => 'submissions#mine'
   post "/submissions" => 'submissions#create'
-  # get "/submissions/:id" => 'submissions#show'
+  get "/submissions/user/:user_id" => 'submissions#show'
   delete "/books/:id" => 'books#destroy'
   get "/books/:id/edit" => 'books#edit'
   patch "/books/:id" => 'books#update'

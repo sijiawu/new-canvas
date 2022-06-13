@@ -14,10 +14,10 @@ class UsersController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'index'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 
@@ -26,10 +26,10 @@ class UsersController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'show'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 
@@ -38,10 +38,10 @@ class UsersController < ApplicationController
       if User.find_by(id: cookies[:user_id]).username == "admin"
         render 'edit'
       else 
-        redirect_to "/", notice: "You do not have permission to access"
+        redirect_to "/", notice: "You do not have permission to access this page"
       end
     else 
-      redirect_to "/", notice: "You do not have permission to access"  
+      redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
 
@@ -52,8 +52,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create :username => params["username"], :email => params["email"], :password => params["password"]
-    redirect_to "/", notice: "New account created!"
+    if params["access_code"] == "cre@tive@lchemy"
+      user = User.create :username => params["username"], :email => params["email"], :password => params["password"]
+      cookies[:user_id] = user.id
+      redirect_to "/", notice: "Welcome, #{user.username}!"
+    else
+      redirect_to "/", notice: "Incorrect access code!"
+    end
   end
-
 end

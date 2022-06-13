@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if @user != nil
       if @user.authenticate(params["password"])
         cookies[:user_id] = @user.id
-        redirect_to "/", notice: "Welcome!"
+        redirect_to "/", notice: "Welcome, #{@user.username}!"
       else
         redirect_to "/sessions/new", notice: "Password incorrect"
       end
