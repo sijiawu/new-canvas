@@ -9,6 +9,7 @@
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/pell/dist/pell.min.css">
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -65,6 +66,23 @@
       <%= yield %>
 
     </div>
+
+     <div id="editor"></div>
+  <div id="markup"></div>
+
+    <script>
+      const pell = window.pell;
+      const editor = document.getElementById("editor");
+      const markup = document.getElementById("markup");
+
+      pell.init({
+        element: editor,
+        onChange: (html) => {
+          markup.innerHTML = "HTML Output: <br /><br />";
+          markup.innerText += html;
+        }
+      });
+    </script>
   </body>
 
 </html>
