@@ -103,19 +103,19 @@
 
       var text = ""
       if (editorType == "post-submission") {
-        text ='<div id="pell"><%= form_tag "/submissions/", method: "post" do %><div id="editor" class="editor border"></div><div class="form-group"><textarea id="markup" class="form-control" name="content" style="display:none;"></textarea></div><%= hidden_field_tag :meeting_id, meeting.id %><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Post Submission</button><% end %></div>';
+        text ='<div id="pell"><%= form_tag "/submissions/", method: "post" do %><div id="editor" class="editor border"></div><div class="form-group"><textarea id="markup" class="form-control" name="content" style="display:none;"></textarea></div><%= hidden_field_tag :meeting_id, meeting.id %><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block" style="background-color:#2c73b7;border-color:#2c73b7">Post Submission</button><% end %></div>';
       } else if (editorType == "post-comment") {
-        text = '<div id="pell"><%= form_tag "/comments/", method: "post" do %><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="submission_id" id="submission_id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Post Comment</button><% end %></div>'
+        text = '<div id="pell"><%= form_tag "/comments/", method: "post" do %><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="submission_id" id="submission_id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block" style="background-color:#2c73b7;border-color:#2c73b7">Post Comment</button><% end %></div>'
       } else if (editorType == "edit-submission") {
         var rawTextDiv = document.getElementById(rawTextDivID)
         rawTextDiv.style.display = "none"
         
-        text = '<div id="pell"><%= form_tag "/submissions/", method: "patch" do %><div id="editor" class="editor border"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="id" id="id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Done</button><% end %></div>'
+        text = '<div id="pell"><%= form_tag "/submissions/", method: "patch" do %><div id="editor" class="editor border"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="id" id="id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block" style="background-color:#2c73b7;border-color:#2c73b7">Done</button><% end %></div>'
       } else if (editorType == "edit-comment") {
         var rawTextDiv = document.getElementById(rawTextDivID)
         rawTextDiv.style.display = "none"
         
-        text = '<div id="pell"><%= form_tag "/comments/", method: "patch" do %><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="id" id="id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Done</button><% end %></div>'
+        text = '<div id="pell"><%= form_tag "/comments/", method: "patch" do %><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="id" id="id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block" style="background-color:#2c73b7;border-color:#2c73b7">Done</button><% end %></div>'
       } else {
         return;
       }

@@ -1,7 +1,7 @@
   <% if User.find_by(id: cookies[:user_id]) != nil %>
     <% if User.find_by(id: cookies[:user_id]).username == "admin" %>
       <div class="my-3">
-        <%= link_to "create new meeting", "/meetings/new", class: 'btn btn-primary', style: "color:white" %>
+        <%= link_to "create new meeting", "/meetings/new", class: 'btn btn-primary', style: "color:white; background-color:#2c73b7;border-color:#2c73b7" %>
       </div>
     <% end %>
   <% end %>
