@@ -22,8 +22,4 @@ class CommentsController < ApplicationController
     comment.save
     redirect_to "/submissions/#{comment.submission.meeting.title}", notice: "Success!"
   end
-
-  def edit
-    @comment = Comment.find_by(id: params["id"])
-  end
 end

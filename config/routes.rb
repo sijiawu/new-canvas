@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   post "/submissions" => 'submissions#create'
   get "/submissions/user/:user_id" => 'submissions#show'
   delete "/submissions/:id" => 'submissions#destroy'
-  get "/submissions/:id/edit" => 'submissions#edit'
-  patch "/submissions/:id" => 'submissions#update'
+  patch "/submissions" => 'submissions#update'
 
   get "/meetings" => "meetings#index"
   get "/meetings/new" => 'meetings#new'
@@ -33,6 +32,5 @@ Rails.application.routes.draw do
 
   post "/comments" => 'comments#create'
   delete "/comments/:id" => 'comments#destroy'
-  get "/comments/:id/edit" => 'comments#edit'
-  patch "/comments/:id" => 'comments#update'
+  patch "/comments/" => 'comments#update'
 end

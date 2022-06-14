@@ -43,9 +43,4 @@ class SubmissionsController < ApplicationController
       redirect_to "/", notice: "You do not have permission to access this page"  
     end
   end
-
-  def edit
-    @submission = Submission.find_by(id: params["id"])
-    render 'edit'
-  end
 end
