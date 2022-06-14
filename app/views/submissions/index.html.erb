@@ -42,6 +42,8 @@
             <% end %>
           <% end %>
 
+          <hr>
+
           <div class="toggle-pell-display" onclick="appendPellEditor(this,'post-comment','<%= submission.id %>');">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16" style="float:left; margin:10px 10px 0">
               <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
@@ -103,7 +105,7 @@
       if (editorType == "post-submission") {
         text ='<div id="pell"><%= form_tag "/submissions/", method: "post" do %><div id="editor" class="editor border"></div><div class="form-group"><textarea id="markup" class="form-control" name="content" style="display:none;"></textarea></div><%= hidden_field_tag :meeting_id, meeting.id %><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Post Submission</button><% end %></div>';
       } else if (editorType == "post-comment") {
-        text = '<div id="pell"><%= form_tag "/comments/", method: "post" do %><hr><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="submission_id" id="submission_id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Post Comment</button><% end %></div>'
+        text = '<div id="pell"><%= form_tag "/comments/", method: "post" do %><div id="editor" class="editor border" style="height:180px"></div><div class="form-group"><textarea id="markup" class="form-control markup" name="content" style="display:none;"></textarea></div><input type="hidden" name="submission_id" id="submission_id" value="' + elementID +  '" autocomplete="off" /><%= hidden_field_tag :user_id, cookies[:user_id] %><button class="btn btn-primary btn-block">Post Comment</button><% end %></div>'
       } else if (editorType == "edit-submission") {
         var rawTextDiv = document.getElementById(rawTextDivID)
         rawTextDiv.style.display = "none"
