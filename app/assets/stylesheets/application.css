@@ -45,6 +45,14 @@ a:visited {
   color: #2c73b7;
 }
 
+a.toggle-pell-display {
+  cursor: pointer;
+}
+
+a.toggle-pell-display:hover {
+  text-decoration: underline !important;
+}
+
 .meeting-title {
   color: #000;
 }
