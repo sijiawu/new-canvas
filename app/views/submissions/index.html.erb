@@ -26,14 +26,19 @@
             </svg>
             <div>
               <%= link_to "#{submission.user.username}", "/submissions/user/#{submission.user.id}", {:style=>"color:#347bad;"} %>
-              <p style="font-size: small"><%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
+              <p style="font-size: small">
+              <%= submission.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %>
+              <% if submission.created_at != submission.updated_at %>
+              (Edited <%= submission.updated_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %>)
+              <% end %>
+              </p>
             </div>
           </div>
           
           <div id="raw-content-<%=index%>" class="toggle-pell-display"><%= raw(submission.content) %></div>
 
           <% if User.find_by(id: cookies[:user_id]) != nil %>
-            <% if User.find_by(id: cookies[:user_id]).id == submission.user.id %>
+            <% if User.find_by(id: cookies[:user_id]).id == submission.user.id || User.find_by(id: cookies[:user_id]).username == "admin" %>
               <hr>
               <p style="color:347bad !important;">
               <a class="toggle-pell-display" style="color:#347bad" onclick="appendPellEditor(this,'edit-submission','<%= submission.id %>','raw-content-<%= index %>');">[Edit]</a>
@@ -65,14 +70,19 @@
                 </svg>
                 <div>
                   <%= link_to "#{comment.user.username}", "/submissions/user/#{comment.user.id}", {:style=>"color:#347bad; font-size: small;"} %>
-                  <p style="font-size: x-small"><%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %></p>
+                  <p style="font-size: x-small">
+                    <%= comment.created_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %>
+                    <% if comment.created_at != comment.updated_at %>
+                    (Edited <%= comment.updated_at.localtime.to_time.strftime('%m/%d/%Y %H:%M') %>)
+                    <% end %>
+                  </p>
                 </div>
               </div>
 
               <div id="raw-content-<%= index %>-<%=j%>" class="toggle-pell-display"><%= raw(comment.content) %></div>
 
               <% if User.find_by(id: cookies[:user_id]) != nil %>
-                <% if User.find_by(id: cookies[:user_id]).id == comment.user.id %>
+                <% if User.find_by(id: cookies[:user_id]).id == comment.user.id || User.find_by(id: cookies[:user_id]).username == "admin" %>
                 <hr>
                   <a class="toggle-pell-display" style="color:#347bad" onclick="appendPellEditor(this,'edit-comment','<%= comment.id %>','raw-content-<%= index %>-<%=j%>');">[Edit]</a>
                   <%= link_to "[Delete]", "/comments/#{comment.id}", method: "delete", data: { confirm: "Are you sure you want to delete this comment?" } %>
