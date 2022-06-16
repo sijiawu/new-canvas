@@ -1,5 +1,7 @@
 <% @submissions = User.find_by(id: cookies[:user_id]).submissions.sort_by(&:created_at) %>
-
+<% if @submissions.size == 0 %>
+  <p> You don't have any submissions yet. </p>
+<% else %>
   <% @submissions.each do |submission| %>
   
     <div class="card" style="margin-top:20px">
@@ -41,4 +43,5 @@
     <% end %>
 
   <% end %>
+<% end %>
 <hr style="margin-top:20px;">
