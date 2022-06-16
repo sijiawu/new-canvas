@@ -3,10 +3,10 @@
 
     <%= form_tag "/users" do %>
 
-      <p>Email: <input name="email" type="text" autofocus class="form-control"></p>
-      <p>Password: <input name="password" type="password" autofocus class="form-control"></p>
-      <p>Displayed name: <input name="username" type="text" autofocus class="form-control" placeholder="Jay Doe"></p>
-      <p>Access code: <input name="access_code" type="password" autofocus class="form-control"></p>
+      <p>Email: <input name="email" type="text" autofocus class="form-control" required></p>
+      <p>Password: <input name="password" type="password" autofocus class="form-control" required></p>
+      <p>Displayed name: <input name="username" type="text" autofocus class="form-control" placeholder="Jay Doe" required></p>
+      <p>Access code: <input name="access_code" type="password" autofocus class="form-control" required></p>
 
       <button class="btn btn-primary" style="background-color:#2c73b7;border-color:#2c73b7">Sign up</button>
 
