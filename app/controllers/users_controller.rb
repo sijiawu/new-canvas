@@ -6,7 +6,12 @@ class UsersController < ApplicationController
     user.email = params["email"]
     user.password = params["password"]
     user.save
-    redirect_to "/users"
+
+    if User.find_by(id: cookies[:user_id]).username == "admin"
+      redirect_to "/users"
+    else
+      redirect_to "/", notice: "Your account info has been updated!"
+    end
   end
 
   def index
@@ -23,7 +28,7 @@ class UsersController < ApplicationController
 
   def show
     if User.find_by(id: cookies[:user_id]) != nil
-      if User.find_by(id: cookies[:user_id]).username == "admin"
+      if User.find_by(id: cookies[:user_id]).username == "admin" || cookies[:user_id] == params["id"]
         render 'show'
       else 
         redirect_to "/", notice: "You do not have permission to access this page"
@@ -35,7 +40,7 @@ class UsersController < ApplicationController
 
   def edit
     if User.find_by(id: cookies[:user_id]) != nil
-      if User.find_by(id: cookies[:user_id]).username == "admin"
+      if User.find_by(id: cookies[:user_id]).username == "admin" || cookies[:user_id] == params["id"]
         render 'edit'
       else 
         redirect_to "/", notice: "You do not have permission to access this page"

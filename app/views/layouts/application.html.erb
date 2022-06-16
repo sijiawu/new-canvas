@@ -64,7 +64,7 @@
 
         <ul class="navbar-nav ml-auto">
           <% if User.find_by(id: cookies[:user_id]) != nil %>
-            <li class="nav-item"><a class="nav-link">Signed in as <b><%= User.find_by(id: cookies[:user_id]).username %></b></a></li>
+            <li class="nav-item"><a class="nav-link" href="/users/<%= cookies[:user_id] %>">Signed in as <b><%= User.find_by(id: cookies[:user_id]).username %></b></a></li>
           <% end %>
 
           <% if cookies[:user_id] != nil %>

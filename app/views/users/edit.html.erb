@@ -1,18 +1,19 @@
 <% user = User.find_by(id: params["id"]) %>
 
-<h1>Editing User Account</h1>
+<h4>Change Display Name, Email or Password</h4>
 
 <div class="row">
   <div class="col-sm-4">
 
     <%= form_tag "/users/#{user.id}", method: "patch" do %>
 
-      <p>Username: <input value="<%= user.username %>" name="username" type="text" autofocus class="form-control"></p>
-      <p>Email: <input value="<%= user.email %>" name="email" type="text" autofocus class="form-control"></p>
-      <p>Password: <input value="<%= user.password %>" name="password" type="text" autofocus class="form-control"></p>
+      <p>Display name: <input value="<%= user.username %>" name="username" type="text" autofocus class="form-control" required></p>
+      <p>Email: <input value="<%= user.email %>" name="email" type="text" autofocus class="form-control" required></p>
+      <p>New Password (can be the same as your current one): <input value="<%= user.password %>" name="password" type="password" autofocus class="form-control" required></p>
 
-      <button class="btn btn-primary" style="background-color:#2c73b7;border-color:#2c73b7">Update User</button>
+      <button class="btn btn-primary" style="background-color:#2c73b7;border-color:#2c73b7">Update</button>
     <% end %>
 
+    <a class="btn btn-primary" href="/"  style="background-color:#2c73b7;border-color:#2c73b7; margin-top:10px; color:white">Cancel</a>
   </div>
 </div>

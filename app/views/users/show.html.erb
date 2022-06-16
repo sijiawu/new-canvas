@@ -1,7 +1,9 @@
-<h1>User Profile</h1>
+<h4>User Profile</h4>
 <hr>
 
 <% user = User.find_by(id: params["id"]) %>
 
-<p>Username: <%= user.username %></p>
+<p>Display name: <%= user.username %></p>
 <p>Email: <%= user.email %></p>
+
+<a class="btn btn-primary" href="/users/<%= params["id"] %>/edit"  style="background-color:#2c73b7;border-color:#2c73b7; margin-top:10px; color:white">Change email, password or display name</a>
