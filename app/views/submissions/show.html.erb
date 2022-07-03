@@ -6,6 +6,10 @@
   </div>
 </div>
 
+<% if User.find_by(id: cookies[:user_id]) == nil %>
+  <%= link_to "Please log in to post submissions or view private submissions", "/sessions/new" %>
+<% else %>  
+
   <% user.submissions.each do |submission| %>
   
     <div class="card" style="margin-top:20px">
@@ -45,6 +49,7 @@
         </div>
       </div>
     <% end %>
-
   <% end %>
+<% end %>
+
 <hr style="margin-top:20px;">
