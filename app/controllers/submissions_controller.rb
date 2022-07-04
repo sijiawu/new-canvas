@@ -26,7 +26,7 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    is_public = params["is_public"] == "1"
+    is_public = !params["is_public"].nil?
     Submission.create :content => params["content"],
                       :meeting_id => params["meeting_id"],
                       :user_id => params["user_id"],
