@@ -4,8 +4,8 @@
     <%= form_tag "/meetings" do %>
 
       <p>Title: <input placeholder="eg. Post your work for 06-29-2022 here" name="title" type="text" autofocus class="form-control" required></p>
-      <p>Link: <input placeholder="eg. 06-29-2022 or some-other-link" name="permalink" type="text" autofocus class="form-control" required></p>
-      <p>Additional Info: <textarea placeholder="eg. Zoom link, meeting time etc" name="additional_info" type="text" autofocus class="form-control"></textarea></p>
+      <p>URL:<input placeholder="eg. 06-29-2022 or some-other-link" name="permalink" type="text" autofocus class="form-control" required></p>
+      <p>Additional Info (eg. Zoom link): <textarea name="additional_info" type="text" autofocus class="form-control"></textarea></p>
 
       <button class="btn btn-primary" style="background-color:#2c73b7;border-color:#2c73b7">Create meeting</button>
 
