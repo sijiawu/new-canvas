@@ -11,7 +11,7 @@ User.create username: 'Spongebob Squarepants', email: 'user1@example.org', passw
 User.create username: 'Patrick', email: 'user2@example.org', password: 'user2pw'
 User.create username: 'admin', email: 'admin@example.org', password: 'admin'
 
-Meeting.create title: '06-29-2022'
+Meeting.create permalink: '06-29-2022', title: 'Post your work for 06-29-2022 here'
 
 submissions = [
   {
@@ -61,7 +61,7 @@ submissions.each_with_index do |submission,index|
   s = Submission.new
   s.content = submission["content"]
   s.user = User.find_by(email: submission["creator"])
-  s.meeting = Meeting.find_by(title: submission["meeting"])
+  s.meeting = Meeting.find_by(permalink: submission["meeting"])
   s.save!
 end
 

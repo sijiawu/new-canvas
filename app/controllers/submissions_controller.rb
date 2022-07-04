@@ -15,14 +15,14 @@ class SubmissionsController < ApplicationController
     submission.content = content
     submission.is_public = !params["is_public"].nil?
     submission.save
-    redirect_to "/submissions/#{submission.meeting.title}", notice: "Success!"
+    redirect_to "/submissions/#{submission.meeting.permalink}", notice: "Success!"
   end
 
   def destroy
     submission = Submission.find_by(id: params["id"])
     meeting = submission.meeting
     submission.delete
-    redirect_to "/submissions/#{meeting.title}", notice: "Success!"
+    redirect_to "/submissions/#{meeting.permalink}", notice: "Success!"
   end
 
   def create
@@ -31,9 +31,9 @@ class SubmissionsController < ApplicationController
                       :meeting_id => params["meeting_id"],
                       :user_id => params["user_id"],
                       :is_public => is_public
-    meeting_title = Meeting.find_by_id(params["meeting_id"]).title
+    meeting_permalink = Meeting.find_by_id(params["meeting_id"]).permalink
 
-    redirect_to "/submissions/#{meeting_title}", notice: "Success!"
+    redirect_to "/submissions/#{meeting_permalink}", notice: "Success!"
   end
 
   def new

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'meetings#index'
 
-  get "/submissions/:title" => 'submissions#index'
+  get "/submissions/:permalink" => 'submissions#index'
   get "/my_submissions/" => 'submissions#mine'
   post "/submissions" => 'submissions#create'
   get "/submissions/user/:user_id" => 'submissions#show'

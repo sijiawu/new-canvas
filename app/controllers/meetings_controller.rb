@@ -6,7 +6,10 @@ class MeetingsController < ApplicationController
 
   def update
     meeting = Meeting.find_by(id: params["id"])
+    meeting.permalink = params["permalink"]
     meeting.title = params["title"]
+    meeting.additional_info = params["additional_info"]
+
     meeting.save
     redirect_to "/", notice: "Success!"
   end
@@ -18,7 +21,9 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    Meeting.create :title => params["title"]
+    Meeting.create :permalink => params["permalink"],
+                   :title => params["title"],
+                   :additional_info => params["additional_info"]
     redirect_to "/", notice: "Success!"
   end
 
