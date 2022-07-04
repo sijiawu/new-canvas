@@ -8,9 +8,16 @@
 
 <% if User.find_by(id: cookies[:user_id]) == nil %>
   <%= link_to "Please log in to post submissions or view private submissions", "/sessions/new" %>
+  <p>You are currently authorized to view public submissions only.</p>
+  <% submissions = user.submissions.select(&:is_public?) %>
 <% else %>  
+  <% submissions = user.submissions %>
+<% end %>
 
-  <% user.submissions.each do |submission| %>
+<% if submissions.size == 0 %>
+  <p> This user does not have any public submissions. </p>
+<% else %>
+  <% submissions.each do |submission| %>
   
     <div class="card" style="margin-top:20px">
 

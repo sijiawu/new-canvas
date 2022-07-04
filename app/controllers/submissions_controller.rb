@@ -11,7 +11,9 @@ class SubmissionsController < ApplicationController
 
   def update
     submission = Submission.find_by(id: params["id"])
-    submission.content = params["content"]
+    content = params["content"].blank? ? submission.content : params["content"]
+    submission.content = content
+    submission.is_public = !params["is_public"].nil?
     submission.save
     redirect_to "/submissions/#{submission.meeting.title}", notice: "Success!"
   end
@@ -24,9 +26,11 @@ class SubmissionsController < ApplicationController
   end
 
   def create
+    is_public = params["is_public"] == "1"
     Submission.create :content => params["content"],
                       :meeting_id => params["meeting_id"],
-                      :user_id => params["user_id"]
+                      :user_id => params["user_id"],
+                      :is_public => is_public
     meeting_title = Meeting.find_by_id(params["meeting_id"]).title
 
     redirect_to "/submissions/#{meeting_title}", notice: "Success!"

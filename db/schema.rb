@@ -10,14 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_12_182749) do
+ActiveRecord::Schema.define(version: 2022_07_03_212735) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "submission_id"
+    t.bigint "user_id"
+    t.bigint "submission_id"
     t.index ["submission_id"], name: "index_comments_on_submission_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -32,8 +35,9 @@ ActiveRecord::Schema.define(version: 2022_06_12_182749) do
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.integer "meeting_id"
+    t.bigint "user_id"
+    t.bigint "meeting_id"
+    t.boolean "is_public", default: false
     t.index ["meeting_id"], name: "index_submissions_on_meeting_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
