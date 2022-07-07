@@ -101,11 +101,11 @@
       <%= link_to "Please log in to post submissions or view private submissions", "/sessions/new" %>
       <p>You are currently authorized to view public submissions only.</p>
 
-      <% @submissions = Submission.select(&:is_public?) %>
-      <% if @submissions.size == 0 %>
+      <% submissions = @submissions.select(&:is_public?) %>
+      <% if submissions.size == 0 %>
         <p> There are no public submissions for this meeting. </p>
       <% else %>
-        <% @submissions.each do |submission| %>
+        <% submissions.each do |submission| %>
         
           <div class="card" style="margin-top:20px">
 
